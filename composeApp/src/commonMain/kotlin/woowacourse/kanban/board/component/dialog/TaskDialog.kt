@@ -46,7 +46,7 @@ fun TaskDialog(
     onDismissClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var titleValue by remember { mutableStateOf("")  }
+    var titleValue by remember { mutableStateOf("") }
     var isTitleDirty by remember { mutableStateOf(false) }
     val isTitleError by remember {
         derivedStateOf {
@@ -176,92 +176,35 @@ private fun TaskDialogContent(
             thickness = Dp.Hairline,
         )
 
-        TaskLabelLayout(
-            label = "제목",
-            isRequired = true,
-        ) {
-            TaskDialogTextField(
-                value = titleValue,
-                onValueChanged = onTitleChanged,
-                isError = isTitleError,
-                placeholder = "태스크 제목을 입력하세요.",
-                maxLines = 1,
-            )
+        TitleField(
+            titleValue = titleValue,
+            onTitleChanged = onTitleChanged,
+            isTitleError = isTitleError,
+        )
 
-            if (isTitleError) {
-                Text(
-                    text = "제목을 입력해 주세요.",
-                    fontSize = 12.sp,
-                    color = Color.Red,
-                    modifier = Modifier
-                        .padding(top = 4.dp)
-                        .padding(horizontal = 16.dp),
-                    maxLines = 1,
-                )
-            }
-        }
+        DescriptionField(
+            descriptionValue = descriptionValue,
+            onDescriptionChanged = onDescriptionChanged,
+        )
 
-        TaskLabelLayout(label = "설명") {
-            TaskDialogTextField(
-                value = descriptionValue,
-                onValueChanged = onDescriptionChanged,
-                placeholder = "태스크에 대한 자세한 설명을 입력하세요.",
-                modifier = Modifier.height(116.dp),
-            )
-        }
+        TagField(
+            tagValue = tagValue,
+            onTagChanged = onTagChanged,
+            isTagError = isTagError,
+            tagErrorMessage = tagErrorMessage,
+        )
 
-        TaskLabelLayout(label = "태그") {
-            TaskDialogTextField(
-                value = tagValue,
-                onValueChanged = onTagChanged,
-                placeholder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
-                isError = isTagError,
-                modifier = Modifier.padding(bottom = 4.dp),
-                maxLines = 1,
-            )
-            Text(
-                text = tagErrorMessage,
-                fontSize = 12.sp,
-                color = if (isTagError) Color.Red else Color.Black,
-                modifier = Modifier.padding(horizontal = 16.dp),
-                maxLines = 1,
-            )
-        }
+        StatusSegmentedButtons(
+            statuses = statuses,
+            selectedStatus = selectedStatus,
+            onStatusChanged = onStatusChanged,
+        )
 
-        TaskLabelLayout(
-            label = "상태",
-            isRequired = true,
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                statuses.forEach {
-                    StatusOptionCard(
-                        text = it.label,
-                        isSelected = selectedStatus == it,
-                        onClick = { onStatusChanged(it) },
-                    )
-                }
-            }
-        }
-
-        TaskLabelLayout(
-            label = "담당자",
-            isRequired = true,
-        ) {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                assignees.forEachIndexed { index, string ->
-                    AssigneeOptionCard(
-                        name = string,
-                        isSelected = selectedAssigneeIndex == index,
-                        onClick = { onAssigneeChanged(index) },
-                    )
-                }
-            }
-        }
+        AssigneesSegmentedButtons(
+            assignees = assignees,
+            selectedAssigneeIndex = selectedAssigneeIndex,
+            onAssigneeChanged = onAssigneeChanged,
+        )
 
         HorizontalDivider(
             color = Color.Black,
@@ -285,6 +228,142 @@ private fun TaskDialogContent(
                 contentColor = Color.White,
                 containerColor = Color.Blue,
             )
+        }
+    }
+}
+
+@Composable
+private fun DescriptionField(
+    descriptionValue: String,
+    onDescriptionChanged: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    TaskLabelLayout(
+        label = "설명",
+        modifier = modifier,
+    ) {
+        TaskDialogTextField(
+            value = descriptionValue,
+            onValueChanged = onDescriptionChanged,
+            placeholder = "태스크에 대한 자세한 설명을 입력하세요.",
+            modifier = Modifier.height(116.dp),
+        )
+    }
+}
+
+@Composable
+private fun TitleField(
+    titleValue: String,
+    onTitleChanged: (String) -> Unit,
+    isTitleError: Boolean,
+    modifier: Modifier = Modifier
+) {
+    TaskLabelLayout(
+        label = "제목",
+        isRequired = true,
+        modifier = modifier,
+    ) {
+        TaskDialogTextField(
+            value = titleValue,
+            onValueChanged = onTitleChanged,
+            isError = isTitleError,
+            placeholder = "태스크 제목을 입력하세요.",
+            maxLines = 1,
+        )
+
+        if (isTitleError) {
+            Text(
+                text = "제목을 입력해 주세요.",
+                fontSize = 12.sp,
+                color = Color.Red,
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .padding(horizontal = 16.dp),
+                maxLines = 1,
+            )
+        }
+    }
+}
+
+@Composable
+private fun TagField(
+    tagValue: String,
+    onTagChanged: (String) -> Unit,
+    isTagError: Boolean,
+    tagErrorMessage: String,
+    modifier: Modifier = Modifier
+) {
+    TaskLabelLayout(
+        label = "태그",
+        modifier = modifier,
+    ) {
+        TaskDialogTextField(
+            value = tagValue,
+            onValueChanged = onTagChanged,
+            placeholder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
+            isError = isTagError,
+            modifier = Modifier.padding(bottom = 4.dp),
+            maxLines = 1,
+        )
+        Text(
+            text = tagErrorMessage,
+            fontSize = 12.sp,
+            color = if (isTagError) Color.Red else Color.Black,
+            modifier = Modifier.padding(horizontal = 16.dp),
+            maxLines = 1,
+        )
+    }
+}
+
+@Composable
+private fun StatusSegmentedButtons(
+    statuses: List<Status>,
+    selectedStatus: Status,
+    onStatusChanged: (Status) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    TaskLabelLayout(
+        label = "상태",
+        isRequired = true,
+        modifier = modifier,
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            statuses.forEach {
+                StatusOptionCard(
+                    text = it.label,
+                    isSelected = selectedStatus == it,
+                    onClick = { onStatusChanged(it) },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AssigneesSegmentedButtons(
+    assignees: List<String>,
+    selectedAssigneeIndex: Int,
+    onAssigneeChanged: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    TaskLabelLayout(
+        label = "담당자",
+        isRequired = true,
+        modifier = modifier,
+    ) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            assignees.forEachIndexed { index, string ->
+                AssigneeOptionCard(
+                    name = string,
+                    isSelected = selectedAssigneeIndex == index,
+                    onClick = { onAssigneeChanged(index) },
+                )
+            }
         }
     }
 }
