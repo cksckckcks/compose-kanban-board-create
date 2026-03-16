@@ -14,17 +14,4 @@ data class KanbanTask(
         require(tags.size <= 5) { "태그는 5개까지만 등록할 수 있습니다." }
         require(tags.all { it.length in 1..5 }) { "태그의 길이는 1에서 5자로 설정해야됩니다." }
     }
-
-    companion object {
-        private val TAG_REGEX = "^.{1,5}$".toRegex()
-
-        fun isTitleValid(title: String): Boolean = title.isNotBlank()
-
-        fun isTagCountValid(tags: List<String>): Boolean = tags.size <= 5
-
-        fun isTagFormatValid(tags: List<String>): Boolean {
-            if (tags.isEmpty()) return true
-            return tags.all { it.matches(TAG_REGEX) }
-        }
-    }
 }

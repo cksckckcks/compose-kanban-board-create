@@ -39,6 +39,7 @@ import woowacourse.kanban.board.component.dialog.component.TaskDialogTopAppBar
 import woowacourse.kanban.board.component.dialog.component.TaskFieldLabel
 import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.dialog.Status
+import woowacourse.kanban.board.util.KanbanValidator
 
 @Composable
 fun TaskDialog(
@@ -50,7 +51,7 @@ fun TaskDialog(
     var isTitleDirty by remember { mutableStateOf(false) }
     val isTitleError by remember {
         derivedStateOf {
-            isTitleDirty && !KanbanTask.isTitleValid(titleValue)
+            isTitleDirty && !KanbanValidator.isTitleValid(titleValue)
         }
     }
 
@@ -64,12 +65,12 @@ fun TaskDialog(
     }
     val isTagCountError by remember {
         derivedStateOf {
-            tagValue.isNotBlank() && !KanbanTask.isTagCountValid(tags)
+            tagValue.isNotBlank() && !KanbanValidator.isTagCountValid(tags)
         }
     }
     val isTagFormatError by remember {
         derivedStateOf {
-            tagValue.isNotBlank() && !KanbanTask.isTagFormatValid(tags)
+            tagValue.isNotBlank() && !KanbanValidator.isTagFormatValid(tags)
         }
     }
 
@@ -81,7 +82,7 @@ fun TaskDialog(
 
     val enabled by remember {
         derivedStateOf {
-            KanbanTask.isTitleValid(titleValue) && !isTagCountError && !isTagFormatError
+            KanbanValidator.isTitleValid(titleValue) && !isTagCountError && !isTagFormatError
         }
     }
 
@@ -123,7 +124,7 @@ fun TaskDialog(
                         tags = tags,
                         status = selectedStatus,
                         assignee = assignees[selectedAssigneeIndex],
-                    )
+                    ),
                 )
             },
         )
@@ -238,7 +239,7 @@ private fun TaskDialogContent(
 private fun DescriptionField(
     descriptionValue: String,
     onDescriptionChanged: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     TaskLabelLayout(
         label = "설명",
@@ -258,7 +259,7 @@ private fun TitleField(
     titleValue: String,
     onTitleChanged: (String) -> Unit,
     isTitleError: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     TaskLabelLayout(
         label = "제목",
@@ -293,7 +294,7 @@ private fun TagField(
     onTagChanged: (String) -> Unit,
     isTagError: Boolean,
     tagErrorMessage: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     TaskLabelLayout(
         label = "태그",
