@@ -31,8 +31,7 @@ fun KanbanCard(
     crewName: String,
     modifier: Modifier = Modifier,
     tags: List<String> = emptyList(),
-    description: String? = null,
-    crewImage: DrawableResource? = null,
+    description: String? = null
 ) {
     Column(
         modifier = modifier
@@ -66,16 +65,7 @@ fun KanbanCard(
 
         HorizontalDivider(thickness = Dp.Hairline, color = Color.LightGray)
 
-        if (crewImage != null) {
-            KanbanCardProfile(
-                crewName = crewName,
-                crewImage = crewImage,
-            )
-        } else {
-            KanbanCardProfile(
-                crewName = crewName,
-            )
-        }
+        KanbanCardProfile(crewName = crewName)
     }
 }
 
