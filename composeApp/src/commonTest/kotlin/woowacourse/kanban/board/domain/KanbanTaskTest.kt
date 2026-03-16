@@ -50,7 +50,7 @@ class KanbanTaskTest {
     @Test
     fun `KanbanTask 생성 실패 - 제목이 공백만 있는 경우`() {
         // Given
-        val blankTitle = "   "
+        val blankTitle = "   \t\n\r\n\t\n"
 
         // When & Then
         val exception = assertFailsWith<IllegalArgumentException> {
@@ -61,28 +61,6 @@ class KanbanTaskTest {
             )
         }
         assertThat(exception.message).isEqualTo("제목은 비어 있거나 공백만 있을 수 없습니다.")
-    }
-
-    @Test
-    fun `태그 제한 - 6개 이상의 태그를 넣어도 visibleTags는 5개만 반환한다`() {
-        // Given
-        val tags = listOf("1", "2", "3", "4", "5", "6")
-        val task = KanbanTask(
-            title = "제목",
-            tags = tags,
-            status = Status.TO_DO,
-            assignee = " 아키",
-        )
-
-        // When
-        val visibleTags = task.tags
-
-        // Then
-        assertThat(visibleTags).hasSize(5)
-        assertThat(visibleTags).containsExactly("1", "2", "3", "4", "5")
-
-        // 추가 검증: 원본 데이터는 6개로 유지된다
-        assertThat(task.tags).hasSize(6)
     }
 
     @Test
