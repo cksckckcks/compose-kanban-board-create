@@ -42,7 +42,7 @@ import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
 fun TaskDialog(
-    onCreateClick: (title: String, description: String?, tags: List<String>, status: String, assignee: String) -> Unit,
+    onCreateClick: (title: String, description: String?, tags: List<String>, status: Status, assignee: String) -> Unit,
     onDismissClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -120,7 +120,7 @@ fun TaskDialog(
                     titleValue,
                     descriptionValue.takeIf { it.isNotBlank() },
                     tags,
-                    selectedStatus.label,
+                    selectedStatus,
                     assignees[selectedAssigneeIndex],
                 )
             },
@@ -332,7 +332,7 @@ private fun StatusSegmentedButtons(
         ) {
             statuses.forEach {
                 StatusOptionCard(
-                    text = it.label,
+                    status = it,
                     isSelected = selectedStatus == it,
                     onClick = { onStatusChanged(it) },
                 )
