@@ -38,6 +38,7 @@ import woowacourse.kanban.board.component.dialog.component.TaskDialogTextField
 import woowacourse.kanban.board.component.dialog.component.TaskDialogTopAppBar
 import woowacourse.kanban.board.component.dialog.component.TaskFieldLabel
 import woowacourse.kanban.board.domain.KanbanTask
+import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
 fun TaskDialog(
@@ -72,8 +73,8 @@ fun TaskDialog(
         }
     }
 
-    val statuses = listOf("To Do", "In Progress", "Done")
-    var selectedStatusIndex by remember { mutableIntStateOf(0) }
+    val statuses = Status.entries
+    var selectedStatus by remember { mutableStateOf(Status.TO_DO) }
 
     val assignees = listOf("다이노", "페임스")
     var selectedAssigneeIndex by remember { mutableIntStateOf(0) }
@@ -107,8 +108,8 @@ fun TaskDialog(
             isTagFormatError = isTagFormatError,
             onTagChanged = { tagValue = it },
             statuses = statuses,
-            selectedStatusIndex = selectedStatusIndex,
-            onStatusChanged = { selectedStatusIndex = it },
+            selectedStatus = selectedStatus,
+            onStatusChanged = { selectedStatus = it },
             assignees = assignees,
             selectedAssigneeIndex = selectedAssigneeIndex,
             onAssigneeChanged = { selectedAssigneeIndex = it },
@@ -119,7 +120,7 @@ fun TaskDialog(
                     titleValue,
                     descriptionValue.takeIf { it.isNotBlank() },
                     tags,
-                    statuses[selectedStatusIndex],
+                    selectedStatus.label,
                     assignees[selectedAssigneeIndex],
                 )
             },
@@ -138,9 +139,9 @@ private fun TaskDialogContent(
     isTagCountError: Boolean,
     isTagFormatError: Boolean,
     onTagChanged: (String) -> Unit,
-    statuses: List<String>,
-    selectedStatusIndex: Int,
-    onStatusChanged: (Int) -> Unit,
+    statuses: List<Status>,
+    selectedStatus: Status,
+    onStatusChanged: (Status) -> Unit,
     assignees: List<String>,
     selectedAssigneeIndex: Int,
     onAssigneeChanged: (Int) -> Unit,
@@ -234,11 +235,11 @@ private fun TaskDialogContent(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                statuses.forEachIndexed { index, string ->
+                statuses.forEach {
                     StatusOptionCard(
-                        text = string,
-                        isSelected = selectedStatusIndex == index,
-                        onClick = { onStatusChanged(index) },
+                        text = it.label,
+                        isSelected = selectedStatus == it,
+                        onClick = { onStatusChanged(it) },
                     )
                 }
             }
@@ -322,8 +323,8 @@ private fun TaskDialogContentPreview() {
         isTagCountError = false,
         isTagFormatError = false,
         onTagChanged = {},
-        statuses = listOf("To Do", "In Progress", "Done"),
-        selectedStatusIndex = 0,
+        statuses = Status.entries,
+        selectedStatus = Status.TO_DO,
         onStatusChanged = {},
         assignees = listOf("다이노", "페임스"),
         selectedAssigneeIndex = 0,
