@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.DrawableResource
 import woowacourse.kanban.board.domain.KanbanTask
+import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
 fun KanbanCard(
@@ -97,44 +97,48 @@ private fun KanbanCardPreview_Optional() {
             title = commonTitle,
             description = commonDescription,
             tags = tags,
-            crewName = commonCrewName,
+            status = Status.TO_DO,
+            assignee = commonCrewName,
         )
         KanbanCard(
             title = fullTask.title,
-            crewName = fullTask.crewName,
-            tags = fullTask.visibleTags,
+            crewName = fullTask.assignee,
+            tags = fullTask.tags,
             description = fullTask.description,
         )
 
         val noDescriptionTask = KanbanTask(
             title = commonTitle,
             tags = tags,
-            crewName = commonCrewName,
+            status = Status.TO_DO,
+            assignee = commonCrewName,
         )
         KanbanCard(
             title = noDescriptionTask.title,
-            crewName = noDescriptionTask.crewName,
-            tags = noDescriptionTask.visibleTags,
+            crewName = noDescriptionTask.assignee,
+            tags = noDescriptionTask.tags,
         )
 
         val noTagsTask = KanbanTask(
             title = commonTitle,
             description = commonDescription,
-            crewName = commonCrewName,
+            status = Status.TO_DO,
+            assignee = commonCrewName,
         )
         KanbanCard(
             title = noTagsTask.title,
-            crewName = noTagsTask.crewName,
+            crewName = noTagsTask.assignee,
             description = noTagsTask.description,
         )
 
         val minimalTask = KanbanTask(
             title = commonTitle,
-            crewName = commonCrewName,
+            status = Status.TO_DO,
+            assignee = commonCrewName,
         )
         KanbanCard(
             title = minimalTask.title,
-            crewName = minimalTask.crewName,
+            crewName = minimalTask.assignee,
         )
     }
 }
@@ -147,12 +151,13 @@ private fun KanbanCardPreview_Max() {
             title = "너무너무 긴 제목은 한 줄까지만 노출합니다".repeat(3),
             description = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다.".repeat(3),
             tags = listOf("컴포넌트", "성능", "긴 태그", "최대로", "5자까지", "5개제한임.", "6개임"),
-            crewName = "아키".repeat(10),
+            status = Status.TO_DO,
+            assignee = "아키".repeat(10),
         )
         KanbanCard(
             title = maxTask.title,
-            crewName = maxTask.crewName,
-            tags = maxTask.visibleTags,
+            crewName = maxTask.assignee,
+            tags = maxTask.tags,
             description = maxTask.description,
         )
     }

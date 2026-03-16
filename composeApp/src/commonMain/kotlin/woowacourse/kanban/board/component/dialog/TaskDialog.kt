@@ -42,7 +42,7 @@ import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
 fun TaskDialog(
-    onCreateClick: (title: String, description: String?, tags: List<String>, status: Status, assignee: String) -> Unit,
+    onCreateClick: (KanbanTask) -> Unit,
     onDismissClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -117,11 +117,13 @@ fun TaskDialog(
             onDismissClick = onDismissClick,
             onCreateClick = {
                 onCreateClick(
-                    titleValue,
-                    descriptionValue.takeIf { it.isNotBlank() },
-                    tags,
-                    selectedStatus,
-                    assignees[selectedAssigneeIndex],
+                    KanbanTask(
+                        title = titleValue,
+                        description = descriptionValue.takeIf { it.isNotBlank() },
+                        tags = tags,
+                        status = selectedStatus,
+                        assignee = assignees[selectedAssigneeIndex],
+                    )
                 )
             },
         )

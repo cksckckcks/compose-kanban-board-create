@@ -6,6 +6,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import kotlin.test.Test
 import woowacourse.kanban.board.domain.KanbanTask
+import woowacourse.kanban.board.domain.dialog.Status
 
 @OptIn(ExperimentalTestApi::class)
 class KanbanCardTest {
@@ -17,7 +18,8 @@ class KanbanCardTest {
             title = "새로운 기능 구현",
             description = "이 기능은 매우 중요합니다.",
             tags = listOf("긴급", "백엔드"),
-            crewName = "아키",
+            status = Status.TO_DO,
+            assignee = "아키",
         )
 
         // When
@@ -25,8 +27,8 @@ class KanbanCardTest {
             KanbanCard(
                 title = task.title,
                 description = task.description,
-                tags = task.visibleTags,
-                crewName = task.crewName,
+                tags = task.tags,
+                crewName = task.assignee,
             )
         }
 
@@ -45,7 +47,8 @@ class KanbanCardTest {
             title = "새로운 기능 구현",
             description = null,
             tags = listOf("긴급"),
-            crewName = "아키",
+            status = Status.TO_DO,
+            assignee = "아키",
         )
 
         // When
@@ -53,8 +56,8 @@ class KanbanCardTest {
             KanbanCard(
                 title = task.title,
                 description = task.description,
-                tags = task.visibleTags,
-                crewName = task.crewName,
+                tags = task.tags,
+                crewName = task.assignee,
             )
         }
 
@@ -71,7 +74,8 @@ class KanbanCardTest {
             title = "새로운 기능 구현",
             description = "설명입니다.",
             tags = emptyList(),
-            crewName = "아키",
+            status = Status.TO_DO,
+            assignee = "아키",
         )
 
         // When
@@ -79,8 +83,8 @@ class KanbanCardTest {
             KanbanCard(
                 title = task.title,
                 description = task.description,
-                tags = task.visibleTags,
-                crewName = task.crewName,
+                tags = task.tags,
+                crewName = task.assignee,
             )
         }
 

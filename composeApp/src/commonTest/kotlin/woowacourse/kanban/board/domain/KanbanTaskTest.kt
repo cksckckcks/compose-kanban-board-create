@@ -3,6 +3,7 @@ package woowacourse.kanban.board.domain
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import org.assertj.core.api.Assertions.assertThat
+import woowacourse.kanban.board.domain.dialog.Status
 
 class KanbanTaskTest {
 
@@ -19,14 +20,15 @@ class KanbanTaskTest {
             title = title,
             description = description,
             tags = tags,
-            crewName = crewName,
+            status = Status.TO_DO,
+            assignee = crewName,
         )
 
         // Then
         assertThat(task.title).isEqualTo(title)
         assertThat(task.description).isEqualTo(description)
         assertThat(task.tags).containsExactlyElementsOf(tags)
-        assertThat(task.crewName).isEqualTo(crewName)
+        assertThat(task.assignee).isEqualTo(crewName)
     }
 
     @Test
@@ -36,7 +38,11 @@ class KanbanTaskTest {
 
         // When & Then
         val exception = assertFailsWith<IllegalArgumentException> {
-            KanbanTask(title = emptyTitle, crewName = "아키")
+            KanbanTask(
+                title = emptyTitle,
+                status = Status.TO_DO,
+                assignee = "아키",
+            )
         }
         assertThat(exception.message).isEqualTo("제목은 비어 있거나 공백만 있을 수 없습니다.")
     }
@@ -48,7 +54,11 @@ class KanbanTaskTest {
 
         // When & Then
         val exception = assertFailsWith<IllegalArgumentException> {
-            KanbanTask(title = blankTitle, crewName = "아키")
+            KanbanTask(
+                title = blankTitle,
+                status = Status.TO_DO,
+                assignee = "아키",
+            )
         }
         assertThat(exception.message).isEqualTo("제목은 비어 있거나 공백만 있을 수 없습니다.")
     }
@@ -57,10 +67,15 @@ class KanbanTaskTest {
     fun `태그 제한 - 6개 이상의 태그를 넣어도 visibleTags는 5개만 반환한다`() {
         // Given
         val tags = listOf("1", "2", "3", "4", "5", "6")
-        val task = KanbanTask(title = "제목", tags = tags, crewName = " 아키")
+        val task = KanbanTask(
+            title = "제목",
+            tags = tags,
+            status = Status.TO_DO,
+            assignee = " 아키",
+        )
 
         // When
-        val visibleTags = task.visibleTags
+        val visibleTags = task.tags
 
         // Then
         assertThat(visibleTags).hasSize(5)
