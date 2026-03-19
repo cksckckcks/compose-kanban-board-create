@@ -1,0 +1,40 @@
+package woowacourse.kanban.board.component.board
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun TaskProgressIndicator(
+    completeCount: Int,
+    totalCount: Int,
+    modifier: Modifier = Modifier,
+) {
+    LinearProgressIndicator(
+        progress = { completeCount.toFloat() / totalCount.toFloat() },
+        color = Color(0xFF4F39F6),
+        trackColor = Color(0xFFE5E7EB),
+        strokeCap = StrokeCap.Square,
+        gapSize = 0.dp,
+        drawStopIndicator = { },
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(CircleShape),
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TaskProgressIndicatorPreview() {
+    TaskProgressIndicator(
+        completeCount = 3,
+        totalCount = 6,
+    )
+}
