@@ -28,7 +28,7 @@ fun TaskProgressIndicator(completeCount: Int, totalCount: Int, modifier: Modifie
 
 @Preview(showBackground = true)
 @Composable
-fun TaskProgressIndicatorPreview() {
+private fun TaskProgressIndicatorPreview() {
     TaskProgressIndicator(
         completeCount = 3,
         totalCount = 6,
