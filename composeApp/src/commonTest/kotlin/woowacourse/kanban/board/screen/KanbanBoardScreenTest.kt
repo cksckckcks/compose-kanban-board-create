@@ -51,8 +51,10 @@ class KanbanBoardScreenTest {
         }
 
         onNodeWithText("새 태스크 생성").performClick()
-        onNodeWithText("제목").performTextInput("안녕하세요")
+        onNodeWithText("태스크 제목을 입력하세요.").performTextInput("안녕하세요")
         onNodeWithText("생성").performClick()
-        onNodeWithText("새로운 태스크가 추가되었습니다.").assertIsDisplayed()
+        waitForIdle()
+
+        onNodeWithText("새로운 태스크가 추가되었습니다.", useUnmergedTree = true).assertIsDisplayed()
     }
 }

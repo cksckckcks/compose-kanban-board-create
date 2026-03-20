@@ -2,16 +2,20 @@ package woowacourse.kanban.board.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import woowacourse.kanban.board.component.board.CardGroup
 import woowacourse.kanban.board.component.board.KanbanBoardTopAppBar
 import woowacourse.kanban.board.component.dialog.TaskDialog
@@ -22,6 +26,8 @@ import woowacourse.kanban.board.domain.dialog.Status
 fun KanbanBoardScreen() {
     val cards: MutableList<KanbanTask> = remember { mutableStateListOf() }
     var isNewTaskDialog by remember { mutableStateOf(false) }
+    val snackBarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
 
     KanbanBoardContent(
         cards = cards,
@@ -32,9 +38,17 @@ fun KanbanBoardScreen() {
         onDismissClick = {
             isNewTaskDialog = false
         },
+        snackHost = snackBarHostState,
         onCreateClick = {
             cards.add(it)
             isNewTaskDialog = false
+
+            coroutineScope.launch {
+                snackBarHostState.showSnackbar(
+                    message = "새로운 태스크가 추가되었습니다.",
+                    withDismissAction = true,
+                )
+            }
         },
     )
 }
@@ -43,6 +57,7 @@ fun KanbanBoardScreen() {
 private fun KanbanBoardContent(
     cards: List<KanbanTask>,
     isNewTaskDialog: Boolean,
+    snackHost: SnackbarHostState,
     onNewTaskClick: () -> Unit,
     onDismissClick: () -> Unit,
     onCreateClick: (KanbanTask) -> Unit,
@@ -56,6 +71,7 @@ private fun KanbanBoardContent(
                 onNewTaskClick = onNewTaskClick,
             )
         },
+        snackbarHost = { SnackbarHost(hostState = snackHost) },
         containerColor = Color.White,
     ) { innerPadding ->
         CardGroup(
@@ -125,6 +141,7 @@ private fun KanbanBoardContentPreview() {
         isNewTaskDialog = false,
         onNewTaskClick = { },
         onCreateClick = { },
+        snackHost = SnackbarHostState(),
         onDismissClick = { },
     )
 }
