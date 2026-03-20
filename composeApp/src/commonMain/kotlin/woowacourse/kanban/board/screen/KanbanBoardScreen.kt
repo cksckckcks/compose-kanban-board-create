@@ -3,25 +3,38 @@ package woowacourse.kanban.board.screen
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.component.board.CardGroup
 import woowacourse.kanban.board.component.board.KanbanBoardTopAppBar
+import woowacourse.kanban.board.component.dialog.TaskDialog
 import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
 fun KanbanBoardScreen() {
     val cards: MutableList<KanbanTask> = remember { mutableStateListOf() }
+    var isNewTaskDialog by remember { mutableStateOf(false) }
 
     KanbanBoardContent(
         cards = cards,
+        isNewTaskDialog = isNewTaskDialog,
         onNewTaskClick = {
-            // 다이얼로그 띄우기
+            isNewTaskDialog = true
+        },
+        onDismissClick = {
+            isNewTaskDialog = false
+        },
+        onCreateClick = {
+            cards.add(it)
+            isNewTaskDialog = false
         },
     )
 }
@@ -29,12 +42,15 @@ fun KanbanBoardScreen() {
 @Composable
 private fun KanbanBoardContent(
     cards: List<KanbanTask>,
+    isNewTaskDialog: Boolean,
     onNewTaskClick: () -> Unit,
+    onDismissClick: () -> Unit,
+    onCreateClick: (KanbanTask) -> Unit,
 ) {
     Scaffold(
         topBar = {
             KanbanBoardTopAppBar(
-                title = "안녕하세요 제목입니다",
+                title = "Compose Desktop 칸반 보드",
                 completeCount = cards.count { it.status == Status.DONE },
                 totalCount = cards.size,
                 onNewTaskClick = onNewTaskClick,
@@ -48,6 +64,13 @@ private fun KanbanBoardContent(
                 .padding(innerPadding)
                 .padding(24.dp),
         )
+
+        if (isNewTaskDialog) {
+            TaskDialog(
+                onDismissClick = onDismissClick,
+                onCreateClick = onCreateClick,
+            )
+        }
     }
 }
 
@@ -99,6 +122,9 @@ private fun KanbanBoardContentPreview() {
                 assignee = "다이노",
             ),
         ),
+        isNewTaskDialog = false,
         onNewTaskClick = { },
+        onCreateClick = { },
+        onDismissClick = { },
     )
 }
