@@ -15,6 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,12 +37,14 @@ fun AssigneeOptionCard(name: String, isSelected: Boolean, onClick: () -> Unit, m
             Icon(
                 imageVector = Icons.Default.AccountCircle,
                 contentDescription = "기본 이미지",
+                tint = Color(0xFF838383),
                 modifier = Modifier.size(24.dp),
             )
 
             Text(
                 text = name,
                 fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
