@@ -33,7 +33,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import woowacourse.kanban.board.component.dialog.component.AssigneeOptionCard
 import woowacourse.kanban.board.component.dialog.component.StatusOptionCard
-import woowacourse.kanban.board.component.dialog.component.TaskDialogButton
+import woowacourse.kanban.board.component.dialog.component.TaskDialogCancelButton
+import woowacourse.kanban.board.component.dialog.component.TaskDialogSubmitButton
 import woowacourse.kanban.board.component.dialog.component.TaskDialogTextField
 import woowacourse.kanban.board.component.dialog.component.TaskDialogTopAppBar
 import woowacourse.kanban.board.component.dialog.component.TaskFieldLabel
@@ -213,17 +214,15 @@ private fun TaskDialogContent(
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            TaskDialogButton(
+            TaskDialogCancelButton(
                 text = "취소",
                 onClick = onDismissClick,
             )
             Spacer(Modifier.width(12.dp))
-            TaskDialogButton(
+            TaskDialogSubmitButton(
                 text = "생성",
                 onClick = onCreateClick,
                 enabled = enabled,
-                contentColor = Color.White,
-                containerColor = Color.Blue,
             )
         }
     }
