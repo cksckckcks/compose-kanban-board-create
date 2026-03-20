@@ -115,7 +115,7 @@ fun TaskDialog(
                     KanbanTask(
                         title = titleValue,
                         description = descriptionValue.takeIf { it.isNotBlank() },
-                        tags = tagValue.split(",").map { it.trim() },
+                        tags = if (tagValue.isEmpty()) emptyList() else tagValue.split(",").map { it.trim() },
                         status = selectedStatus,
                         assignee = assignees[selectedAssigneeIndex],
                     ),
