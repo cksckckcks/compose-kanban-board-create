@@ -28,11 +28,7 @@ import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
-fun CardHolder(
-    status: Status,
-    cards: List<KanbanTask>,
-    modifier: Modifier = Modifier,
-) {
+fun CardHolder(status: Status, cards: List<KanbanTask>, modifier: Modifier = Modifier) {
     val (bodyColor, borderColor) = when (status) {
         Status.TO_DO -> Color(0xFFEFF6FF) to Color(0xFFBEDBFF)
         Status.IN_PROGRESS -> Color(0xFFFFFBEB) to Color(0xFFFEE685)
@@ -69,17 +65,12 @@ fun CardHolder(
                     description = cards[it].description,
                 )
             }
-
         }
     }
 }
 
 @Composable
-private fun CardHolderTitle(
-    status: Status,
-    cardCount: Int,
-    modifier: Modifier = Modifier,
-) {
+private fun CardHolderTitle(status: Status, cardCount: Int, modifier: Modifier = Modifier) {
     val (text, color) = when (status) {
         Status.TO_DO -> "To Do" to Color(0xFF155DFC)
         Status.IN_PROGRESS -> "In Progress" to Color(0xFFE17100)

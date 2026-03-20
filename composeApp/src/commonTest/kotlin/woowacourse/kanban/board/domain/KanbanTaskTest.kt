@@ -67,7 +67,6 @@ class KanbanTaskTest {
         // Given
         val tags = listOf("안녕1", "안녕2", "안녕3", "안녕4", "안녕5", "안녕6")
 
-
         // When & Then
         val exception = assertFailsWith<IllegalArgumentException> {
             KanbanTask(

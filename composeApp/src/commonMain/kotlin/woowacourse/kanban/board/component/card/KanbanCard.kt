@@ -31,7 +31,7 @@ fun KanbanCard(
     crewName: String,
     modifier: Modifier = Modifier,
     tags: List<String> = emptyList(),
-    description: String? = null
+    description: String? = null,
 ) {
     Column(
         modifier = modifier

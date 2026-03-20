@@ -14,19 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun KanbanBoardTopAppBar(
-    title: String,
-    completeCount: Int,
-    totalCount: Int,
-    onNewTaskClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun KanbanBoardTopAppBar(title: String, completeCount: Int, totalCount: Int, onNewTaskClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .border(1.dp, Color(0xFFE5E7EB))
-            .padding(horizontal = 24.dp, vertical = 16.dp)
-        ,
+            .padding(horizontal = 24.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Row(

@@ -12,11 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TaskProgressIndicator(
-    completeCount: Int,
-    totalCount: Int,
-    modifier: Modifier = Modifier,
-) {
+fun TaskProgressIndicator(completeCount: Int, totalCount: Int, modifier: Modifier = Modifier) {
     LinearProgressIndicator(
         progress = { completeCount.toFloat() / totalCount.toFloat() },
         color = Color(0xFF4F39F6),

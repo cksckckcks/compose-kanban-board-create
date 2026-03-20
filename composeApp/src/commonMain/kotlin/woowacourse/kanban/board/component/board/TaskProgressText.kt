@@ -9,11 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TaskProgressText(
-    completeCount: Int,
-    totalCount: Int,
-    modifier: Modifier = Modifier,
-) {
+fun TaskProgressText(completeCount: Int, totalCount: Int, modifier: Modifier = Modifier) {
     Text(
         text = "완료율 : ${(completeCount.toFloat() / totalCount.toFloat() * 100).toInt()}% ($completeCount/$totalCount)",
         fontSize = 14.sp,

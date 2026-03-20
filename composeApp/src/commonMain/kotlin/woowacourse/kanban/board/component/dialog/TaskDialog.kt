@@ -42,11 +42,7 @@ import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
-fun TaskDialog(
-    onCreateClick: (KanbanTask) -> Unit,
-    onDismissClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun TaskDialog(onCreateClick: (KanbanTask) -> Unit, onDismissClick: () -> Unit, modifier: Modifier = Modifier) {
     var titleValue by remember { mutableStateOf("") }
     var isTitleDirty by remember { mutableStateOf(false) }
     val isTitleError by remember {
@@ -229,11 +225,7 @@ private fun TaskDialogContent(
 }
 
 @Composable
-private fun DescriptionField(
-    descriptionValue: String,
-    onDescriptionChanged: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
+private fun DescriptionField(descriptionValue: String, onDescriptionChanged: (String) -> Unit, modifier: Modifier = Modifier) {
     TaskLabelLayout(
         label = "설명",
         modifier = modifier,
@@ -248,12 +240,7 @@ private fun DescriptionField(
 }
 
 @Composable
-private fun TitleField(
-    titleValue: String,
-    onTitleChanged: (String) -> Unit,
-    isTitleError: Boolean,
-    modifier: Modifier = Modifier,
-) {
+private fun TitleField(titleValue: String, onTitleChanged: (String) -> Unit, isTitleError: Boolean, modifier: Modifier = Modifier) {
     TaskLabelLayout(
         label = "제목",
         isRequired = true,
