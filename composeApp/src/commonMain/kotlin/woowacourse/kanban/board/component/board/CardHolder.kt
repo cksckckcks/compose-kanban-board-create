@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -54,15 +55,12 @@ fun CardHolder(status: Status, cards: List<KanbanTask>, modifier: Modifier = Mod
                 .padding(vertical = 16.dp, horizontal = 17.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(
-                count = cards.size,
-                key = { index -> "$index ${cards[index].title}" },
-            ) {
+            items(items = cards) { card ->
                 KanbanCard(
-                    title = cards[it].title,
-                    crewName = cards[it].assignee,
-                    tags = cards[it].tags,
-                    description = cards[it].description,
+                    title = card.title,
+                    crewName = card.assignee,
+                    tags = card.tags,
+                    description = card.description,
                 )
             }
         }
