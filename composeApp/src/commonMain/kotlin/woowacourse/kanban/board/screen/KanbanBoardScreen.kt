@@ -62,12 +62,19 @@ private fun KanbanBoardContent(
     onDismissClick: () -> Unit,
     onCreateClick: (KanbanTask) -> Unit,
 ) {
+    val completeCount = cards.count { it.status == Status.DONE }
+    val totalCount = cards.size
+    val progress = if (totalCount == 0) 0f else completeCount.toFloat() / totalCount.toFloat()
+    val progressPercent = (progress * 100).toInt()
+
     Scaffold(
         topBar = {
             KanbanBoardTopAppBar(
                 title = "Compose Desktop 칸반 보드",
-                completeCount = cards.count { it.status == Status.DONE },
-                totalCount = cards.size,
+                progress = progress,
+                progressPercent = progressPercent,
+                completeCount = completeCount,
+                totalCount = totalCount,
                 onNewTaskClick = onNewTaskClick,
             )
         },

@@ -14,7 +14,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun KanbanBoardTopAppBar(title: String, completeCount: Int, totalCount: Int, onNewTaskClick: () -> Unit, modifier: Modifier = Modifier) {
+fun KanbanBoardTopAppBar(
+    title: String,
+    progress: Float,
+    progressPercent: Int,
+    completeCount: Int,
+    totalCount: Int,
+    onNewTaskClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -33,6 +41,7 @@ fun KanbanBoardTopAppBar(title: String, completeCount: Int, totalCount: Int, onN
                 TopAppBarTitle(text = title)
 
                 TaskProgressText(
+                    progressPercent = progressPercent,
                     completeCount = completeCount,
                     totalCount = totalCount,
                 )
@@ -44,10 +53,7 @@ fun KanbanBoardTopAppBar(title: String, completeCount: Int, totalCount: Int, onN
             )
         }
 
-        TaskProgressIndicator(
-            completeCount = completeCount,
-            totalCount = totalCount,
-        )
+        TaskProgressIndicator(progress = progress)
     }
 }
 
@@ -56,6 +62,8 @@ fun KanbanBoardTopAppBar(title: String, completeCount: Int, totalCount: Int, onN
 private fun KanbanBoardTopAppBar() {
     KanbanBoardTopAppBar(
         title = "Compose Desktop 칸반 보드",
+        progress = 0.5f,
+        progressPercent = 50,
         completeCount = 3,
         totalCount = 6,
         onNewTaskClick = { },
