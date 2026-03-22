@@ -54,14 +54,19 @@ fun TaskDialog(onCreateClick: (KanbanTask) -> Unit, onDismissClick: () -> Unit, 
     var descriptionValue by remember { mutableStateOf("") }
 
     var tagValue by remember { mutableStateOf("") }
+    val tags by remember {
+        derivedStateOf {
+            tagValue.split(",").map { it.trim() }
+        }
+    }
     val isTagCountError by remember {
         derivedStateOf {
-            tagValue.isNotBlank() && !KanbanTask.isTagCountValid(tagValue.split(",").map { it.trim() })
+            tagValue.isNotBlank() && !KanbanTask.isTagCountValid(tags)
         }
     }
     val isTagFormatError by remember {
         derivedStateOf {
-            tagValue.isNotBlank() && !KanbanTask.isTagFormatValid(tagValue.split(",").map { it.trim() })
+            tagValue.isNotBlank() && !KanbanTask.isTagFormatValid(tags)
         }
     }
 
@@ -112,7 +117,7 @@ fun TaskDialog(onCreateClick: (KanbanTask) -> Unit, onDismissClick: () -> Unit, 
                     KanbanTask(
                         title = titleValue,
                         description = descriptionValue.takeIf { it.isNotBlank() },
-                        tags = if (tagValue.isEmpty()) emptyList() else tagValue.split(",").map { it.trim() },
+                        tags = if (tagValue.isEmpty()) emptyList() else tags,
                         status = selectedStatus,
                         assignee = assignees[selectedAssigneeIndex],
                     ),
