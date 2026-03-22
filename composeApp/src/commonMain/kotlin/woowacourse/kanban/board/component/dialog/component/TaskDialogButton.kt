@@ -15,15 +15,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TaskDialogSubmitButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
+fun TaskDialogButton(
+    text: String,
+    onClick: () -> Unit,
+    containerColor: Color,
+    contentColor: Color,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+) {
     Button(
         modifier = modifier,
         enabled = enabled,
         onClick = onClick,
         shape = RoundedCornerShape(10.dp),
         colors = ButtonColors(
-            containerColor = Color.Blue,
-            contentColor = Color.White,
+            containerColor = containerColor,
+            contentColor = contentColor,
             disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.White,
         ),
@@ -39,13 +46,15 @@ fun TaskDialogSubmitButton(text: String, onClick: () -> Unit, modifier: Modifier
 
 @Preview
 @Composable
-private fun TaskDialogSubmitButtonPreview() {
+private fun TaskDialogButtonPreview() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        TaskDialogSubmitButton(
+        TaskDialogButton(
             text = "생성",
             enabled = true,
+            containerColor = Color.Blue,
+            contentColor = Color.White,
             onClick = {},
         )
     }

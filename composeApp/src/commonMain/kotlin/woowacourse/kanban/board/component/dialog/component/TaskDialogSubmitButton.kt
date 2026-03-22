@@ -9,12 +9,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TaskDialogCancelButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
+fun TaskDialogSubmitButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
     TaskDialogButton(
         text = text,
         onClick = onClick,
-        containerColor = Color.White,
-        contentColor = Color.Black,
+        containerColor = Color.Blue,
+        contentColor = Color.White,
         modifier = modifier,
         enabled = enabled,
     )
@@ -26,8 +26,8 @@ private fun TaskDialogCancelButtonPreview() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        TaskDialogCancelButton(
-            text = "취소",
+        TaskDialogSubmitButton(
+            text = "생성",
             enabled = true,
             onClick = {},
         )
