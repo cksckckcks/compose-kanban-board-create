@@ -50,7 +50,7 @@ from 책 「애자일 조직은 이렇게 일합니다」
 - 특정 조건에 따라 Snackbar를 노출한다.
 
 ## 가이드
-[![Figma](https://www.figma.com/design/3aBG3UfkTwmHM8BnPyahtT/8%EA%B8%B0-Android-%EB%A0%88%EB%B2%A81-%EB%AF%B8%EC%85%98-%EB%94%94%EC%9E%90%EC%9D%B8?node-id=21642-2&t=xCxwxtFTp8FpfgFV-1)
+[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/3aBG3UfkTwmHM8BnPyahtT/8%EA%B8%B0-Android-%EB%A0%88%EB%B2%A81-%EB%AF%B8%EC%85%98-%EB%94%94%EC%9E%90%EC%9D%B8?node-id=21642-2&t=xCxwxtFTp8FpfgFV-1)
 
 ## 1단계 기능 구현 목록
 
