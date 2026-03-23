@@ -16,8 +16,13 @@ fun CardGroup(cards: List<KanbanTask>, modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Status.entries.forEach { status ->
+            val kanbanBoardInfo = status.toKanbanBoardInfo()
+
             CardHolder(
-                status = status,
+                title = kanbanBoardInfo.title,
+                bodyColor = kanbanBoardInfo.bodyColor,
+                borderColor = kanbanBoardInfo.borderColor,
+                titleBackgroundColor = kanbanBoardInfo.titleBackgroundColor,
                 cards = cards.filter { card -> card.status == status },
             )
         }

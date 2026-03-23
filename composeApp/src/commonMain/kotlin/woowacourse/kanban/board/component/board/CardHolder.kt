@@ -29,19 +29,21 @@ import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
-fun CardHolder(status: Status, cards: List<KanbanTask>, modifier: Modifier = Modifier) {
-    val (bodyColor, borderColor) = when (status) {
-        Status.TO_DO -> Color(0xFFEFF6FF) to Color(0xFFBEDBFF)
-        Status.IN_PROGRESS -> Color(0xFFFFFBEB) to Color(0xFFFEE685)
-        Status.DONE -> Color(0xFFF0FDF4) to Color(0xFFB9F8CF)
-    }
-
+fun CardHolder(
+    title: String,
+    titleBackgroundColor: Color,
+    bodyColor: Color,
+    borderColor: Color,
+    cards: List<KanbanTask>,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .width(320.dp),
     ) {
         CardHolderTitle(
-            status = status,
+            text = title,
+            color = titleBackgroundColor,
             cardCount = cards.size,
         )
 
@@ -68,13 +70,7 @@ fun CardHolder(status: Status, cards: List<KanbanTask>, modifier: Modifier = Mod
 }
 
 @Composable
-private fun CardHolderTitle(status: Status, cardCount: Int, modifier: Modifier = Modifier) {
-    val (text, color) = when (status) {
-        Status.TO_DO -> "To Do" to Color(0xFF155DFC)
-        Status.IN_PROGRESS -> "In Progress" to Color(0xFFE17100)
-        Status.DONE -> "Done" to Color(0xFF00A63E)
-    }
-
+private fun CardHolderTitle(text: String, color: Color, cardCount: Int, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -110,7 +106,10 @@ private fun CardHolderTitle(status: Status, cardCount: Int, modifier: Modifier =
 @Composable
 private fun CardHolderPreview() {
     CardHolder(
-        status = Status.TO_DO,
+        title = "To Do",
+        titleBackgroundColor = Color(0xFF155DFC),
+        bodyColor = Color(0xFFEFF6FF),
+        borderColor = Color(0xFFBEDBFF),
         cards = listOf(
             KanbanTask(
                 title = "LazyColumn 컴포넌트 구현",
@@ -134,7 +133,8 @@ private fun CardHolderPreview() {
 @Composable
 private fun CardHolderTitlePreview() {
     CardHolderTitle(
-        status = Status.TO_DO,
+        text = "To Do",
+        color = Color(0xFF155DFC),
         cardCount = 3,
     )
 }
