@@ -8,7 +8,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TopAppBarTitle(text: String, modifier: Modifier = Modifier) {
+fun TopAppBarTitle(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text = text,
         fontSize = 24.sp,

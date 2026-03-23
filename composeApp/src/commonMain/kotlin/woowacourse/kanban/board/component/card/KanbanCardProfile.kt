@@ -19,7 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun KanbanCardProfile(crewName: String, modifier: Modifier = Modifier) {
+fun KanbanCardProfile(
+    crewName: String,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = modifier.padding(end = 20.dp, bottom = 10.dp),
         verticalAlignment = Alignment.CenterVertically,

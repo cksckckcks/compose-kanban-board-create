@@ -19,7 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun NewTaskButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun NewTaskButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Button(
         modifier = modifier,
         onClick = onClick,

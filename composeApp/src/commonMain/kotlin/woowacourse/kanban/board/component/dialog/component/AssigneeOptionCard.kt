@@ -23,7 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AssigneeOptionCard(name: String, isSelected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun AssigneeOptionCard(
+    name: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     TaskOptionCard(
         isSelected = isSelected,
         onClick = onClick,
@@ -33,7 +38,7 @@ fun AssigneeOptionCard(name: String, isSelected: Boolean, onClick: () -> Unit, m
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
-                .padding(vertical = 20.dp, horizontal = 16.dp)
+                .padding(vertical = 20.dp, horizontal = 16.dp),
         ) {
             Icon(
                 imageVector = Icons.Default.AccountCircle,

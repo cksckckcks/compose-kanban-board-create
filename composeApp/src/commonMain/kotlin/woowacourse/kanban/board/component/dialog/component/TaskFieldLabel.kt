@@ -8,7 +8,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TaskFieldLabel(label: String, modifier: Modifier = Modifier, isRequired: Boolean = false) {
+fun TaskFieldLabel(
+    label: String,
+    modifier: Modifier = Modifier,
+    isRequired: Boolean = false,
+) {
     val text = if (isRequired) "$label *" else label
 
     Text(

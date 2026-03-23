@@ -34,7 +34,6 @@ fun KanbanBoardScreen() {
     val progress = if (totalCount == 0) 0f else completeCount.toFloat() / totalCount.toFloat()
     val progressPercent = (progress * 100).toInt()
 
-
     KanbanBoardContent(
         cards = cards,
         completeCount = completeCount,

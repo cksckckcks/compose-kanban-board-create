@@ -10,7 +10,10 @@ import woowacourse.kanban.board.domain.KanbanTask
 import woowacourse.kanban.board.domain.dialog.Status
 
 @Composable
-fun CardGroup(cards: List<KanbanTask>, modifier: Modifier = Modifier) {
+fun CardGroup(
+    cards: List<KanbanTask>,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(16.dp),

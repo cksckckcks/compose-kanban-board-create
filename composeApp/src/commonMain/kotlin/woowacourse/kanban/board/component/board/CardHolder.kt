@@ -70,7 +70,12 @@ fun CardHolder(
 }
 
 @Composable
-private fun CardHolderTitle(text: String, color: Color, cardCount: Int, modifier: Modifier = Modifier) {
+private fun CardHolderTitle(
+    text: String,
+    color: Color,
+    cardCount: Int,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
