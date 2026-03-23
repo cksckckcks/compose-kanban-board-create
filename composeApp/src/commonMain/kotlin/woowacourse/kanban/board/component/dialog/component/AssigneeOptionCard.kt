@@ -1,8 +1,8 @@
 package woowacourse.kanban.board.component.dialog.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -28,11 +28,12 @@ fun AssigneeOptionCard(name: String, isSelected: Boolean, onClick: () -> Unit, m
         isSelected = isSelected,
         onClick = onClick,
         modifier = modifier,
-        paddingValues = PaddingValues(vertical = 20.dp, horizontal = 16.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier
+                .padding(vertical = 20.dp, horizontal = 16.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.AccountCircle,
