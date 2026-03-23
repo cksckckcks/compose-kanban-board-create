@@ -17,6 +17,8 @@ class KanbanBoardTopAppBarTest {
         setContent {
             KanbanBoardTopAppBar(
                 title = title,
+                progress = 0.5f,
+                progressPercent = 50,
                 completeCount = completeCount,
                 totalCount = totalCount,
                 onNewTaskClick = { },
