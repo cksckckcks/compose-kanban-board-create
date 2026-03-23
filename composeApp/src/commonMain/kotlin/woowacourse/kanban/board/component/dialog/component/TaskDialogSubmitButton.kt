@@ -27,7 +27,7 @@ fun TaskDialogSubmitButton(
 
 @Preview
 @Composable
-private fun TaskDialogCancelButtonPreview() {
+private fun TaskDialogSubmitButtonPreview() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
