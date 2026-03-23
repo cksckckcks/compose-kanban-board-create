@@ -29,8 +29,18 @@ fun KanbanBoardScreen() {
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
+    val completeCount = cards.count { it.status == Status.DONE }
+    val totalCount = cards.size
+    val progress = if (totalCount == 0) 0f else completeCount.toFloat() / totalCount.toFloat()
+    val progressPercent = (progress * 100).toInt()
+
+
     KanbanBoardContent(
         cards = cards,
+        completeCount = completeCount,
+        totalCount = totalCount,
+        progress = progress,
+        progressPercent = progressPercent,
         isNewTaskDialog = isNewTaskDialog,
         onNewTaskClick = {
             isNewTaskDialog = true
@@ -56,16 +66,16 @@ fun KanbanBoardScreen() {
 @Composable
 private fun KanbanBoardContent(
     cards: List<KanbanTask>,
+    completeCount: Int,
+    totalCount: Int,
+    progress: Float,
+    progressPercent: Int,
     isNewTaskDialog: Boolean,
     snackHost: SnackbarHostState,
     onNewTaskClick: () -> Unit,
     onDismissClick: () -> Unit,
     onCreateClick: (KanbanTask) -> Unit,
 ) {
-    val completeCount = cards.count { it.status == Status.DONE }
-    val totalCount = cards.size
-    val progress = if (totalCount == 0) 0f else completeCount.toFloat() / totalCount.toFloat()
-    val progressPercent = (progress * 100).toInt()
 
     Scaffold(
         topBar = {
@@ -145,6 +155,10 @@ private fun KanbanBoardContentPreview() {
                 assignee = "다이노",
             ),
         ),
+        completeCount = 3,
+        totalCount = 6,
+        progress = 0.5f,
+        progressPercent = 50,
         isNewTaskDialog = false,
         onNewTaskClick = { },
         onCreateClick = { },
